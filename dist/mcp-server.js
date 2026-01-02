@@ -1,16 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.VolcEngineMCPServer = void 0;
-const index_js_1 = require("@modelcontextprotocol/sdk/server/index.js");
-const stdio_js_1 = require("@modelcontextprotocol/sdk/server/stdio.js");
-const types_js_1 = require("@modelcontextprotocol/sdk/types.js");
-const volcengine_client_js_1 = require("./volcengine-client.js");
-class VolcEngineMCPServer {
+import { Server } from '@modelcontextprotocol/sdk/server/index.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { CallToolRequestSchema, ListToolsRequestSchema, } from '@modelcontextprotocol/sdk/types.js';
+import { VolcEngineClient } from './volcengine-client.js';
+export class VolcEngineMCPServer {
     server;
     client;
     constructor(apiKey) {
-        this.client = new volcengine_client_js_1.VolcEngineClient(apiKey);
-        this.server = new index_js_1.Server({
+        this.client = new VolcEngineClient(apiKey);
+        this.server = new Server({
             name: 'volcengine-mcp-server',
             version: '1.0.0',
         }, {
@@ -22,10 +19,10 @@ class VolcEngineMCPServer {
         this.setupErrorHandlers();
     }
     setupToolHandlers() {
-        this.server.setRequestHandler(types_js_1.ListToolsRequestSchema, async () => ({
+        this.server.setRequestHandler(ListToolsRequestSchema, async () => ({
             tools: this.getTools(),
         }));
-        this.server.setRequestHandler(types_js_1.CallToolRequestSchema, async (request) => {
+        this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
             const { name, arguments: args } = request.params;
             try {
                 switch (name) {
@@ -231,10 +228,9 @@ class VolcEngineMCPServer {
         });
     }
     async run() {
-        const transport = new stdio_js_1.StdioServerTransport();
+        const transport = new StdioServerTransport();
         await this.server.connect(transport);
         console.error('VolcEngine MCP Server running on stdio');
     }
 }
-exports.VolcEngineMCPServer = VolcEngineMCPServer;
 //# sourceMappingURL=mcp-server.js.map

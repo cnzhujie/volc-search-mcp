@@ -1,11 +1,11 @@
 {
-  "name": "volcengine-mcp-server",
+  "name": "volcengine-search-mcp-server",
   "version": "1.0.0",
   "description": "MCP Server for VolcEngine Web Search and Image Search",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "volcengine-mcp": "dist/cli.js"
+    "volcengine-search-mcp": "dist/cli.js"
   },
   "scripts": {
     "build": "tsc",

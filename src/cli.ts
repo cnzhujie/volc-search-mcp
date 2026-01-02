@@ -10,7 +10,7 @@ dotenv.config();
 const program = new Command();
 
 program
-  .name('volcengine-mcp')
+  .name('volcengine-search-mcp')
   .description('MCP Server for VolcEngine Web Search and Image Search')
   .version('1.0.0')
   .option('-k, --api-key <key>', 'VolcEngine API Key (can also use VOLCENGINE_API_KEY env var)')

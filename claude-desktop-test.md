@@ -12,7 +12,7 @@ Add the following to your Claude Desktop configuration file:
   "mcpServers": {
     "volcengine-search": {
       "command": "npx",
-      "args": ["volcengine-mcp-server", "--api-key", "YOUR_VOLCENGINE_API_KEY"]
+      "args": ["volcengine-search-mcp", "--api-key", "YOUR_VOLCENGINE_API_KEY"]
     }
   }
 }
@@ -24,7 +24,7 @@ Add the following to your Claude Desktop configuration file:
   "mcpServers": {
     "volcengine-search": {
       "command": "npx.cmd",
-      "args": ["volcengine-mcp-server", "--api-key", "YOUR_VOLCENGINE_API_KEY"]
+      "args": ["volcengine-search-mcp", "--api-key", "YOUR_VOLCENGINE_API_KEY"]
     }
   }
 }

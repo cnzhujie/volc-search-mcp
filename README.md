@@ -14,19 +14,19 @@ MCP (Model Context Protocol) Server for VolcEngine Web Search and Image Search A
 ### Global Installation (Recommended for CLI usage)
 
 ```bash
-npm install -g volcengine-mcp-server
+npm install -g volcengine-search-mcp-server
 ```
 
 Or use npx directly:
 
 ```bash
-npx volcengine-mcp-server --help
+npx volcengine-search-mcp --help
 ```
 
 ### Local Installation
 
 ```bash
-npm install volcengine-mcp-server
+npm install volcengine-search-mcp-server
 ```
 
 ## Usage
@@ -35,16 +35,16 @@ npm install volcengine-mcp-server
 
 ```bash
 # Start the MCP server
-npx volcengine-mcp-server
+npx volcengine-search-mcp
 
 # With API Key
-npx volcengine-mcp-server --api-key YOUR_API_KEY
+npx volcengine-search-mcp --api-key YOUR_API_KEY
 
 # With custom port
-npx volcengine-mcp-server --port 3000
+npx volcengine-search-mcp --port 3000
 
 # Show help
-npx volcengine-mcp-server --help
+npx volcengine-search-mcp --help
 ```
 
 ### Environment Variables
@@ -58,7 +58,7 @@ export VOLCENGINE_PORT=3000
 
 Then run:
 ```bash
-npx volcengine-mcp-server
+npx volcengine-search-mcp-server
 ```
 
 ## API Key
@@ -111,7 +111,7 @@ Add this to your Claude Desktop configuration:
   "mcpServers": {
     "volcengine": {
       "command": "npx",
-      "args": ["volcengine-mcp-server", "--api-key", "YOUR_API_KEY"]
+      "args": ["volcengine-search-mcp", "--api-key", "YOUR_API_KEY"]
     }
   }
 }
@@ -123,7 +123,7 @@ Add this to your Claude Desktop configuration:
 
 ```bash
 git clone <repository-url>
-cd volcengine-mcp-server
+cd volcengine-search-mcp-server
 npm install
 npm run build
 ```

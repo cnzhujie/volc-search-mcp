@@ -1,14 +1,9 @@
 #!/usr/bin/env node
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const commander_1 = require("commander");
-const mcp_server_js_1 = require("./mcp-server.js");
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-const program = new commander_1.Command();
+import { Command } from 'commander';
+import { VolcEngineMCPServer } from './mcp-server.js';
+import dotenv from 'dotenv';
+dotenv.config();
+const program = new Command();
 program
     .name('volcengine-mcp')
     .description('MCP Server for VolcEngine Web Search and Image Search')
@@ -34,7 +29,7 @@ program
             console.error('Starting VolcEngine MCP Server...');
             console.error(`API Key: ${apiKey.substring(0, 8)}...`);
         }
-        const server = new mcp_server_js_1.VolcEngineMCPServer(apiKey);
+        const server = new VolcEngineMCPServer(apiKey);
         await server.run();
     }
     catch (error) {

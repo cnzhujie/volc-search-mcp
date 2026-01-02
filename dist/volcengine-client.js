@@ -1,16 +1,10 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.VolcEngineClient = void 0;
-const axios_1 = __importDefault(require("axios"));
-class VolcEngineClient {
+import axios from 'axios';
+export class VolcEngineClient {
     client;
     apiKey;
     constructor(apiKey) {
         this.apiKey = apiKey;
-        this.client = axios_1.default.create({
+        this.client = axios.create({
             baseURL: 'https://open.feedcoopapi.com',
             headers: {
                 'Content-Type': 'application/json',
@@ -109,5 +103,4 @@ class VolcEngineClient {
         return !!this.apiKey && this.apiKey.trim().length > 0;
     }
 }
-exports.VolcEngineClient = VolcEngineClient;
 //# sourceMappingURL=volcengine-client.js.map

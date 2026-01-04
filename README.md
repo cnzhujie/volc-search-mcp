@@ -1,4 +1,4 @@
-# VolcEngine MCP Server
+# VolcEngine Search MCP Server
 
 MCP (Model Context Protocol) Server for VolcEngine Web Search and Image Search APIs.
 

@@ -32,7 +32,70 @@ export class VolcEngineClient {
         };
         try {
             const response = await this.client.post('/search_api/web_search', requestBody);
-            return response.data.Result;
+            const apiResult = response.data.Result;
+            if (!apiResult) {
+                return {
+                    resultCount: 0,
+                    webResults: [],
+                    imageResults: [],
+                    searchContext: { originQuery: params.query, searchType: 'web' },
+                    timeCost: 0,
+                    logId: '',
+                    cardResults: [],
+                    choices: [],
+                    usage: undefined
+                };
+            }
+            return {
+                resultCount: apiResult.ResultCount || 0,
+                webResults: (apiResult.WebResults || []).map(item => ({
+                    id: item.Id || '',
+                    sortId: item.SortId || 0,
+                    title: item.Title || '',
+                    siteName: item.SiteName,
+                    url: item.Url,
+                    snippet: item.Snippet || '',
+                    summary: item.Summary,
+                    content: item.Content,
+                    publishTime: item.PublishTime,
+                    logoUrl: item.LogoUrl,
+                    rankScore: item.RankScore,
+                    authInfoDes: item.AuthInfoDes || '',
+                    authInfoLevel: item.AuthInfoLevel || 0,
+                    ruyiInfo: item.RuyiInfo
+                })),
+                imageResults: (apiResult.ImageResults || []).map(item => ({
+                    id: item.Id || '',
+                    sortId: item.SortId || 0,
+                    title: item.Title,
+                    siteName: item.SiteName,
+                    url: item.Url,
+                    publishTime: item.PublishTime,
+                    image: {
+                        url: item.Image?.Url || '',
+                        width: item.Image?.Width,
+                        height: item.Image?.Height,
+                        shape: item.Image?.Shape || ''
+                    },
+                    rankScore: item.RankScore
+                })),
+                searchContext: apiResult.SearchContext ? {
+                    originQuery: apiResult.SearchContext.OriginQuery || params.query,
+                    searchType: apiResult.SearchContext.SearchType || 'web'
+                } : { originQuery: params.query, searchType: 'web' },
+                timeCost: apiResult.TimeCost || 0,
+                logId: apiResult.LogId || '',
+                cardResults: apiResult.CardResults || [],
+                choices: apiResult.Choices || [],
+                usage: apiResult.Usage ? {
+                    promptTokens: apiResult.Usage.PromptTokens || 0,
+                    completionTokens: apiResult.Usage.CompletionTokens || 0,
+                    totalTokens: apiResult.Usage.TotalTokens || 0,
+                    searchTimeCost: apiResult.Usage.SearchTimeCost || 0,
+                    firstTokenTimeCost: apiResult.Usage.FirstTokenTimeCost || 0,
+                    totalTimeCost: apiResult.Usage.TotalTimeCost || 0
+                } : undefined
+            };
         }
         catch (error) {
             if (error.response?.data?.Error) {
@@ -61,7 +124,70 @@ export class VolcEngineClient {
         };
         try {
             const response = await this.client.post('/search_api/web_search', requestBody);
-            return response.data.Result;
+            const apiResult = response.data.Result;
+            if (!apiResult) {
+                return {
+                    resultCount: 0,
+                    webResults: [],
+                    imageResults: [],
+                    searchContext: { originQuery: params.query, searchType: 'web_summary' },
+                    timeCost: 0,
+                    logId: '',
+                    cardResults: [],
+                    choices: [],
+                    usage: undefined
+                };
+            }
+            return {
+                resultCount: apiResult.ResultCount || 0,
+                webResults: (apiResult.WebResults || []).map(item => ({
+                    id: item.Id || '',
+                    sortId: item.SortId || 0,
+                    title: item.Title || '',
+                    siteName: item.SiteName,
+                    url: item.Url,
+                    snippet: item.Snippet || '',
+                    summary: item.Summary,
+                    content: item.Content,
+                    publishTime: item.PublishTime,
+                    logoUrl: item.LogoUrl,
+                    rankScore: item.RankScore,
+                    authInfoDes: item.AuthInfoDes || '',
+                    authInfoLevel: item.AuthInfoLevel || 0,
+                    ruyiInfo: item.RuyiInfo
+                })),
+                imageResults: (apiResult.ImageResults || []).map(item => ({
+                    id: item.Id || '',
+                    sortId: item.SortId || 0,
+                    title: item.Title,
+                    siteName: item.SiteName,
+                    url: item.Url,
+                    publishTime: item.PublishTime,
+                    image: {
+                        url: item.Image?.Url || '',
+                        width: item.Image?.Width,
+                        height: item.Image?.Height,
+                        shape: item.Image?.Shape || ''
+                    },
+                    rankScore: item.RankScore
+                })),
+                searchContext: apiResult.SearchContext ? {
+                    originQuery: apiResult.SearchContext.OriginQuery || params.query,
+                    searchType: apiResult.SearchContext.SearchType || 'web_summary'
+                } : { originQuery: params.query, searchType: 'web_summary' },
+                timeCost: apiResult.TimeCost || 0,
+                logId: apiResult.LogId || '',
+                cardResults: apiResult.CardResults || [],
+                choices: apiResult.Choices || [],
+                usage: apiResult.Usage ? {
+                    promptTokens: apiResult.Usage.PromptTokens || 0,
+                    completionTokens: apiResult.Usage.CompletionTokens || 0,
+                    totalTokens: apiResult.Usage.TotalTokens || 0,
+                    searchTimeCost: apiResult.Usage.SearchTimeCost || 0,
+                    firstTokenTimeCost: apiResult.Usage.FirstTokenTimeCost || 0,
+                    totalTimeCost: apiResult.Usage.TotalTimeCost || 0
+                } : undefined
+            };
         }
         catch (error) {
             if (error.response?.data?.Error) {
@@ -89,7 +215,70 @@ export class VolcEngineClient {
         };
         try {
             const response = await this.client.post('/search_api/web_search', requestBody);
-            return response.data.Result;
+            const apiResult = response.data.Result;
+            if (!apiResult) {
+                return {
+                    resultCount: 0,
+                    webResults: [],
+                    imageResults: [],
+                    searchContext: { originQuery: params.query, searchType: 'image' },
+                    timeCost: 0,
+                    logId: '',
+                    cardResults: [],
+                    choices: [],
+                    usage: undefined
+                };
+            }
+            return {
+                resultCount: apiResult.ResultCount || 0,
+                webResults: (apiResult.WebResults || []).map(item => ({
+                    id: item.Id || '',
+                    sortId: item.SortId || 0,
+                    title: item.Title || '',
+                    siteName: item.SiteName,
+                    url: item.Url,
+                    snippet: item.Snippet || '',
+                    summary: item.Summary,
+                    content: item.Content,
+                    publishTime: item.PublishTime,
+                    logoUrl: item.LogoUrl,
+                    rankScore: item.RankScore,
+                    authInfoDes: item.AuthInfoDes || '',
+                    authInfoLevel: item.AuthInfoLevel || 0,
+                    ruyiInfo: item.RuyiInfo
+                })),
+                imageResults: (apiResult.ImageResults || []).map(item => ({
+                    id: item.Id || '',
+                    sortId: item.SortId || 0,
+                    title: item.Title,
+                    siteName: item.SiteName,
+                    url: item.Url,
+                    publishTime: item.PublishTime,
+                    image: {
+                        url: item.Image?.Url || '',
+                        width: item.Image?.Width,
+                        height: item.Image?.Height,
+                        shape: item.Image?.Shape || ''
+                    },
+                    rankScore: item.RankScore
+                })),
+                searchContext: apiResult.SearchContext ? {
+                    originQuery: apiResult.SearchContext.OriginQuery || params.query,
+                    searchType: apiResult.SearchContext.SearchType || 'image'
+                } : { originQuery: params.query, searchType: 'image' },
+                timeCost: apiResult.TimeCost || 0,
+                logId: apiResult.LogId || '',
+                cardResults: apiResult.CardResults || [],
+                choices: apiResult.Choices || [],
+                usage: apiResult.Usage ? {
+                    promptTokens: apiResult.Usage.PromptTokens || 0,
+                    completionTokens: apiResult.Usage.CompletionTokens || 0,
+                    totalTokens: apiResult.Usage.TotalTokens || 0,
+                    searchTimeCost: apiResult.Usage.SearchTimeCost || 0,
+                    firstTokenTimeCost: apiResult.Usage.FirstTokenTimeCost || 0,
+                    totalTimeCost: apiResult.Usage.TotalTimeCost || 0
+                } : undefined
+            };
         }
         catch (error) {
             if (error.response?.data?.Error) {

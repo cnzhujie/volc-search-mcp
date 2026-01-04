@@ -75,4 +75,56 @@ export interface ErrorResponse {
     Code: string;
     Message: string;
 }
+export interface ApiWebSearchResult {
+    Id: string;
+    SortId: number;
+    Title: string;
+    SiteName?: string;
+    Url?: string;
+    Snippet: string;
+    Summary?: string;
+    Content?: string;
+    PublishTime?: string;
+    LogoUrl?: string;
+    RankScore?: number;
+    AuthInfoDes: string;
+    AuthInfoLevel: number;
+    RuyiInfo?: any;
+}
+export interface ApiImageSearchResult {
+    Id: string;
+    SortId: number;
+    Title?: string;
+    SiteName?: string;
+    Url?: string;
+    PublishTime?: string;
+    Image: {
+        Url: string;
+        Width?: number;
+        Height?: number;
+        Shape: string;
+    };
+    RankScore?: number;
+}
+export interface ApiSearchResponse {
+    ResultCount: number;
+    WebResults?: ApiWebSearchResult[];
+    ImageResults?: ApiImageSearchResult[];
+    SearchContext: {
+        OriginQuery: string;
+        SearchType: string;
+    };
+    TimeCost: number;
+    LogId: string;
+    CardResults?: any[];
+    Choices?: any[];
+    Usage?: {
+        PromptTokens: number;
+        CompletionTokens: number;
+        TotalTokens: number;
+        SearchTimeCost: number;
+        FirstTokenTimeCost: number;
+        TotalTimeCost: number;
+    };
+}
 //# sourceMappingURL=types.d.ts.map

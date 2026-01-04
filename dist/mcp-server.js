@@ -1,5 +1,7 @@
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { SSEServerTransport as ModelContextSSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
+import http from 'node:http';
 import { CallToolRequestSchema, ListToolsRequestSchema, } from '@modelcontextprotocol/sdk/types.js';
 import { VolcEngineClient } from './volcengine-client.js';
 export class VolcEngineMCPServer {
@@ -227,10 +229,43 @@ export class VolcEngineMCPServer {
             process.exit(0);
         });
     }
-    async run() {
-        const transport = new StdioServerTransport();
-        await this.server.connect(transport);
-        console.error('VolcEngine MCP Server running on stdio');
+    async run(mode = 'stdio', port = 3000) {
+        if (mode === 'stdio') {
+            const transport = new StdioServerTransport();
+            await this.server.connect(transport);
+            console.error('VolcEngine MCP Server running on stdio');
+        }
+        else {
+            const transportMap = new Map();
+            const server = http.createServer(async (req, res) => {
+                if (req.method === 'GET' && req.url === '/mcp/sse') {
+                    const transport = new ModelContextSSEServerTransport('/mcp/message', res);
+                    transportMap.set(transport.sessionId, transport);
+                    transport.onclose = () => {
+                        transportMap.delete(transport.sessionId);
+                    };
+                    await this.server.connect(transport);
+                }
+                else if (req.method === 'POST' && req.url?.startsWith('/mcp/message?sessionId=')) {
+                    const sessionId = req.url.split('sessionId=')[1].split('&')[0];
+                    const transport = transportMap.get(sessionId);
+                    if (transport) {
+                        await transport.handlePostMessage(req, res);
+                    }
+                    else {
+                        res.writeHead(404).end('Session not found');
+                    }
+                }
+                else {
+                    res.writeHead(404).end('Not found');
+                }
+            });
+            server.listen(port, () => {
+                console.error(`VolcEngine MCP Server running on SSE port ${port}`);
+                console.error(`SSE endpoint: http://localhost:${port}/mcp/sse`);
+                console.error(`Message endpoint: http://localhost:${port}/mcp/message`);
+            });
+        }
     }
 }
 //# sourceMappingURL=mcp-server.js.map

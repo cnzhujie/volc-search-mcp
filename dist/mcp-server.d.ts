@@ -7,6 +7,6 @@ export declare class VolcEngineMCPServer {
     private handleWebSearch;
     private handleImageSearch;
     private setupErrorHandlers;
-    run(): Promise<void>;
+    run(mode?: 'stdio' | 'sse', port?: number): Promise<void>;
 }
 //# sourceMappingURL=mcp-server.d.ts.map

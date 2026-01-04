@@ -14,7 +14,8 @@ program
   .description('MCP Server for VolcEngine Web Search and Image Search')
   .version('1.0.0')
   .option('-k, --api-key <key>', 'VolcEngine API Key (can also use VOLCENGINE_API_KEY env var)')
-  .option('-p, --port <port>', 'Port for HTTP transport (not used for stdio)', '3000')
+  .option('-m, --mode <mode>', 'Server mode: stdio or sse', 'stdio')
+  .option('-p, --port <port>', 'Port for SSE transport (not used for stdio)', '3000')
   .option('-v, --verbose', 'Enable verbose logging')
   .action(async (options) => {
     try {
@@ -40,7 +41,7 @@ program
 
       // Create and run the MCP server
       const server = new VolcEngineMCPServer(apiKey);
-      await server.run();
+      await server.run(options.mode, parseInt(options.port));
 
     } catch (error: any) {
       console.error('Failed to start MCP server:', error.message);

@@ -30,8 +30,10 @@ program
             console.error('Starting VolcEngine MCP Server...');
             console.error(`API Key: ${apiKey.substring(0, 8)}...`);
         }
+        const mode = options.mode || process.env.VOLCENGINE_MODE || 'stdio';
+        const port = parseInt(options.port) || parseInt(process.env.VOLCENGINE_PORT || '3000');
         const server = new VolcEngineMCPServer(apiKey);
-        await server.run(options.mode, parseInt(options.port));
+        await server.run(mode, port);
     }
     catch (error) {
         console.error('Failed to start MCP server:', error.message);

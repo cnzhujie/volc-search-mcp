@@ -39,9 +39,15 @@ program
         console.error(`API Key: ${apiKey.substring(0, 8)}...`);
       }
 
+      // Get mode from options or environment variable
+      const mode = options.mode || (process.env.VOLCENGINE_MODE as 'stdio' | 'sse') || 'stdio';
+      
+      // Get port from options or environment variable
+      const port = parseInt(options.port) || parseInt(process.env.VOLCENGINE_PORT || '3000');
+      
       // Create and run the MCP server
       const server = new VolcEngineMCPServer(apiKey);
-      await server.run(options.mode, parseInt(options.port));
+      await server.run(mode, port);
 
     } catch (error: any) {
       console.error('Failed to start MCP server:', error.message);

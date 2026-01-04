@@ -33,15 +33,25 @@ npm install volcengine-search-mcp-server
 
 ### CLI Usage
 
+#### Server Modes
+
+The server supports two run modes:
+
+1. **stdio (default)**: Uses standard input/output for communication (best for desktop applications like Claude Desktop)
+2. **sse**: Uses HTTP Server-Sent Events (SSE) for communication (best for web applications)
+
 ```bash
-# Start the MCP server
+# Start the MCP server in stdio mode (default)
 npx volcengine-search-mcp
 
-# With API Key
-npx volcengine-search-mcp --api-key YOUR_API_KEY
+# Start the MCP server in SSE mode
+npx volcengine-search-mcp --mode sse
 
-# With custom port
-npx volcengine-search-mcp --port 3000
+# With API Key
+npx volcengine-search-mcp --api-key YOUR_API_KEY --mode sse
+
+# With custom port (only for SSE mode)
+npx volcengine-search-mcp --mode sse --port 3000
 
 # Show help
 npx volcengine-search-mcp --help
@@ -52,8 +62,9 @@ npx volcengine-search-mcp --help
 You can also set environment variables:
 
 ```bash
-export VOLCENGINE_API_KEY=your_api_key
-export VOLCENGINE_PORT=3000
+export VOLCENGINE_API_KEY=your_api_key  # Required for API access
+export VOLCENGINE_MODE=sse  # Optional: stdio or sse (default: stdio)
+export VOLCENGINE_PORT=3000  # Optional, only for SSE mode (default: 3000)
 ```
 
 Then run:

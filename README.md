@@ -20,7 +20,7 @@ npm install -g volcengine-search-mcp-server
 Or use npx directly:
 
 ```bash
-npx volcengine-search-mcp --help
+npx volcengine-search-mcp-server --help
 ```
 
 ### Local Installation
@@ -42,19 +42,19 @@ The server supports two run modes:
 
 ```bash
 # Start the MCP server in stdio mode (default)
-npx volcengine-search-mcp
+npx volcengine-search-mcp-server
 
 # Start the MCP server in SSE mode
-npx volcengine-search-mcp --mode sse
+npx volcengine-search-mcp-server --mode sse
 
 # With API Key
-npx volcengine-search-mcp --api-key YOUR_API_KEY --mode sse
+npx volcengine-search-mcp-server --api-key YOUR_API_KEY --mode sse
 
 # With custom port (only for SSE mode)
-npx volcengine-search-mcp --mode sse --port 3000
+npx volcengine-search-mcp-server --mode sse --port 3000
 
 # Show help
-npx volcengine-search-mcp --help
+npx volcengine-search-mcp-server --help
 ```
 
 ### Environment Variables
@@ -122,7 +122,7 @@ Add this to your Claude Desktop configuration:
   "mcpServers": {
     "volcengine": {
       "command": "npx",
-      "args": ["volcengine-search-mcp", "--api-key", "YOUR_API_KEY"]
+      "args": ["volcengine-search-mcp-server", "--api-key", "YOUR_API_KEY"]
     }
   }
 }
